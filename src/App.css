@@ -36,3 +36,47 @@
     transform: rotate(360deg);
   }
 }
+
+.logoNavBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+}
+
+.logo-image {
+  width: 100px;
+  height: auto;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color:beige
+}
+
+.logoNavBar {
+  flex: 1;
+}
+
+.navbar {
+  display: flex;
+  flex: 2; 
+  justify-content: center;
+}
+
+.navbarMenu {
+  margin: 25px 40px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-image {
+  width: 100px; 
+  height: auto;
+}
+
+
+
