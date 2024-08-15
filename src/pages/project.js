@@ -18,6 +18,7 @@ const Project = () => {
     ]
         const [zoomLevel, setZoomLevel] = useState(0);
         const [selectedText, setSelectedText] = useState("");
+        const [index, setIndex] = useState(0);
       
         const handleZoomIn = () => {
           setZoomLevel(prev => (prev < 100 ? prev + 10 : prev));
@@ -33,7 +34,6 @@ const Project = () => {
     
         const handleTextChange = (event) => {
             setSelectedText(event.target.value);
-
         };
     
         const videoJsOptions = {
@@ -59,9 +59,6 @@ const Project = () => {
             });
           };
         
-        const saveNewText = (newText) => {
-            const initial = localStorage.getItem('')
-        };
         
 
     return (
@@ -75,8 +72,8 @@ const Project = () => {
                 <TextInput value={selectedText} onChange={handleTextChange} />
             </div> 
             <div className="button-container">
-                <Button text='edit'></Button>
-                <Button text='save'></Button>  
+                <button>edit</button>
+                <button>save</button>  
             </div>
         </div>
         <div className="language-option">

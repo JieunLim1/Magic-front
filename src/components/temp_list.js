@@ -71,42 +71,4 @@ const ListItem = ({ onItemClick }) => {
 }
 
 export default ListItem;
-// import React, { useEffect, useState } from 'react';
 
-// const JsonDisplay = () => {
-//   const [data, setData] = useState(null); // JSON 데이터를 저장할 상태
-//   const [error, setError] = useState(null); // 에러 상태
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch('/cider_json.json'); // public 폴더에서의 상대 경로
-//         if (!response.ok) {
-//           throw new Error(`HTTP error! status: ${response.status}`);
-//         }
-//         const jsonData = await response.json();
-//         setData(jsonData); // JSON 데이터를 상태에 저장
-//       } catch (error) {
-//         setError(error.message);
-//         console.error('Error fetching the JSON file:', error);
-//       }
-//     };
-
-//     fetchData();
-//   }, []); // 컴포넌트가 마운트될 때 한 번만 실행
-
-//   return (
-//     <div>
-//       <h1>JSON File Content</h1>
-//       {error ? (
-//         <p>Error: {error}</p> // 에러가 발생하면 에러 메시지를 표시
-//       ) : data ? (
-//         <pre>{JSON.stringify(data, null, 2)}</pre> // JSON 데이터를 예쁘게 출력
-//       ) : (
-//         <p>Loading...</p> // 데이터가 로드될 때까지 로딩 메시지 표시
-//       )}
-//     </div>
-//   );
-// };
-
-// export default JsonDisplay;
