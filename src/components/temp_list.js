@@ -28,18 +28,20 @@ const ListItem = ({ onItemClick }) => {
 
   useEffect(() => {
     const fetchDataAndStore = async () => {
-      try {
-        const response = await fetch('/cider_json.json');
-        const jsonData = await response.json();
-        const key = jsonData.language;
-        const value = JSON.stringify(jsonData.segments);
-        localStorage.setItem(key, value);
-        setSegments(jsonData.segments);
-        console.log('Data stored successfully');
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+        try {
+          const response = localStorage.getItem('seg');
+          const jsondata = JSON.parse(response) || []; // 빈 배열로 초기화를 보장
+          if (Array.isArray(jsondata)) { // jsondata가 배열인지 확인
+            setSegments(jsondata);
+            console.log("data fetch success");
+          } else {
+            console.error('Fetched data is not an array:', jsondata);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+
 
     fetchDataAndStore();
   }, []); // Empty dependency array means this runs once when the component mounts
@@ -49,8 +51,8 @@ const ListItem = ({ onItemClick }) => {
 
   const handleSelect = (index) => {
     setSelectedIndex(index);
-    onItemClick(segments[index].text);
-
+    onItemClick({ index, text: segments[index].text });
+    console.log("index"+ index);
   };
 
   return (

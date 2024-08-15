@@ -1,6 +1,6 @@
 import TextInput from '../components/textDisplay';
 import Button from "../components/Button";
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './project.css';
 import Multi from "../components/multiSelect";
 import Popup from "./projectPopup";
@@ -17,8 +17,9 @@ const Project = () => {
         { value: 'option3', label: 'CH' }
     ]
         const [zoomLevel, setZoomLevel] = useState(0);
+        const [selectedItem, setSelectedItem] = useState({ index: null, text: "" });
         const [selectedText, setSelectedText] = useState("");
-        const [index, setIndex] = useState(0);
+        const [index, setIndex] = useState(null);
       
         const handleZoomIn = () => {
           setZoomLevel(prev => (prev < 100 ? prev + 10 : prev));
@@ -28,8 +29,11 @@ const Project = () => {
           setZoomLevel(prev => (prev > 0 ? prev - 10 : prev));
         };
 
-        const handleItemClick = (text) => {
-            setSelectedText(text);
+        const handleItemClick = (item) => {
+            setSelectedItem(item);
+            setSelectedText(item.text);
+            setIndex(item.index);
+            console.log("item index: " + item.index);
         };
     
         const handleTextChange = (event) => {
@@ -59,6 +63,21 @@ const Project = () => {
             });
           };
         
+          const [project, setProject] = useState(null);
+
+
+        //   subtitleBlock의 text 수정하는 함수
+          const updateSubtitleText = () => {
+            const loadedProject = localStorage.getItem('seg');
+            if (loadedProject) {
+                const org = JSON.parse(loadedProject);
+                org[index].text = selectedText;
+                const updatedProject = org;
+                setProject(updatedProject);
+                localStorage.setItem('seg', JSON.stringify(updatedProject));
+              };
+          };
+        
         
 
     return (
@@ -72,7 +91,7 @@ const Project = () => {
                 <TextInput value={selectedText} onChange={handleTextChange} />
             </div> 
             <div className="button-container">
-                <button>edit</button>
+                <button onClick={updateSubtitleText}>edit</button>
                 <button>save</button>  
             </div>
         </div>
