@@ -1,6 +1,5 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
-import Button from '../components/Button';
 function Popup() {
     // const inputRef = useRef();
 

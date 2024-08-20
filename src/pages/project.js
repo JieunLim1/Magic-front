@@ -1,13 +1,12 @@
 import TextInput from '../components/textDisplay';
-import Button from "../components/Button";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './project.css';
 import Multi from "../components/multiSelect";
 import Popup from "./projectPopup";
 import VideoJS from '../components/VideoPlayer';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import ListItem from '../components/temp_list';
+import ListItem from '../components/List';
 const Project = () => {
     const playerRef = React.useRef(null);
 
@@ -16,18 +15,10 @@ const Project = () => {
         { value: 'option2', label: 'EN' },
         { value: 'option3', label: 'CH' }
     ]
-        const [zoomLevel, setZoomLevel] = useState(0);
         const [selectedItem, setSelectedItem] = useState({ index: null, text: "" });
         const [selectedText, setSelectedText] = useState("");
         const [index, setIndex] = useState(null);
       
-        const handleZoomIn = () => {
-          setZoomLevel(prev => (prev < 100 ? prev + 10 : prev));
-        };
-      
-        const handleZoomOut = () => {
-          setZoomLevel(prev => (prev > 0 ? prev - 10 : prev));
-        };
 
         const handleItemClick = (item) => {
             setSelectedItem(item);
@@ -39,7 +30,8 @@ const Project = () => {
         const handleTextChange = (event) => {
             setSelectedText(event.target.value);
         };
-    
+
+        // 비디오 플레이 옵션
         const videoJsOptions = {
             autoplay: true,
             controls: true,
@@ -97,15 +89,6 @@ const Project = () => {
         </div>
         <div className="language-option">
             <Multi className='add-language' options={options} title='Select language'/>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px' }}>
-            <button className='zoom-out-container' onClick={handleZoomOut} disabled={zoomLevel === 0}>
-                <img className='zoom-out' src='./zoomout.png'></img>
-            </button>
-            <input type="text" value={`${zoomLevel}%`} readOnly style={{ textAlign: 'center', margin: '0 10px', width: '60px' }} />
-            <button className='zoom-in-container' onClick={handleZoomIn} disabled={zoomLevel === 100}>
-                <img className='zoom-in' src='./zoomin.png'></img>
-            </button>   
         </div>
         <div className="x-line"/>
         <Popup />

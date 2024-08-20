@@ -6,7 +6,7 @@ import Dashboard from './pages/dashboard';
 import Plan from './pages/plan';
 import Nav from './components/NavBar';
 import Project from './pages/project';
-
+import Starter from './components/starter';
 function App() {
   return (
     <BrowserRouter>
@@ -17,7 +17,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/plan' element={<Plan />} />
           <Route path='/project' element={<Project />} />
-        </Routes>  
+        </Routes> 
+        <Starter/>
       </div>
     </BrowserRouter>
 

@@ -1,48 +1,20 @@
-import React, { useState } from 'react';
-
-
-const initialData = [
-  {
-    text: " 똑같은 하루에서 답답함을 빼면",
-    start: 0.13,
-    end: 4.329,
-    image: './thumbnails/thumbnail-01.jpg',
-  },
-  {
-    text: " 더 청량해 질 거야 제로처럼 ",
-    start: 4.329,
-    end: 10.330,
-    image: './thumbnails/thumbnail-03.jpg',
-  },
-  {
-    text: " 우리 없어도 되는 건 빼고 살자",
-    start: 17.09,
-    end: 22.17,
-    image: './thumbnails/thumbnail-06.png',
-  },
-  {
-    text: " 칠성사이다 제로",
-    start: 27.202,
-    end: 30.702,
-    image: './thumbnails/thumbnail-07.jpg',
-  }
-];
+import React, { useEffect, useState } from 'react';
 
 function renderRow({ index, key, style, item, onClick }) {
   return (
     <div 
       className="column" 
       key={key} 
-      style={{...style, display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', width: '230px'}} 
+      style={{...style, display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', marginRight: '10px'}} 
       onClick={() => onClick(item.text)}
     >
       <div className='timestamp' style={{width: '220px', display: 'flex', justifyContent: 'space-between', color: 'white'}}>
         <div>{item.start}</div>
         <div>{item.end}</div>
       </div>
-      <div className="image" style={{marginBottom: '10px'}}>
+      {/* <div className="image" style={{marginBottom: '10px'}}>
         <img src={item.image} alt="" style={{width: '228.5px', height: '130px'}} />
-      </div>
+      </div> */}
       <div className="content" style={{textAlign: 'center'}}>
         <div style={{fontWeight: 'bold', marginBottom: '5px', color: 'white'}}>{item.text}</div>
       </div>
@@ -50,20 +22,43 @@ function renderRow({ index, key, style, item, onClick }) {
   );
 }
 
-const Sublist = ({ onItemClick }) => {
-  const [list, setList] = useState(initialData);
+const ListItem = ({ onItemClick }) => {
+
+  const [segments, setSegments] = useState([]);
+  // local storage에서 데이터 가져오기
+  useEffect(() => {
+    const fetchDataAndStore = async () => {
+        try {
+          const response = localStorage.getItem('seg');
+          const jsondata = JSON.parse(response) || [];
+          if (Array.isArray(jsondata)) { 
+            setSegments(jsondata);
+            console.log("data fetch success");
+          } else {
+            console.error('Fetched data is not an array:', jsondata);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+
+
+    fetchDataAndStore();
+  }, []); // Empty dependency array means this runs once when the component mounts
+
   const [selectedIndex, setSelectedIndex] = useState(null);
   const rowHeight = 200;
 
   const handleSelect = (index) => {
     setSelectedIndex(index);
-    onItemClick(list[index].text);
+    onItemClick({ index, text: segments[index].text });
+    console.log("index"+ index);
   };
 
   return (
     <div>
       <div className="list" style={{display: 'flex', overflowX: 'auto', height: rowHeight, backgroundColor: 'black', alignItems: 'center', marginTop: '5px'}}>
-        {list.map((item, index) => (
+        {segments.map((item, index) => (
           renderRow({
             index,
             key: index,
@@ -77,5 +72,5 @@ const Sublist = ({ onItemClick }) => {
   );
 }
 
-export default Sublist;
+export default ListItem;
 
