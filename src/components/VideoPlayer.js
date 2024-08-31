@@ -3,8 +3,8 @@ import "videojs-youtube";
 import "./video-js.min.css";
 import captions from "../captions/cider.vtt";
 
-const VideoPage = () => {
-  const videoID = "VBoZSbRcfJ4";
+const VideoPage = ({videoID}) => {
+  //const videoID = "VBoZSbRcfJ4";
   console.log(`this is video id: ${videoID}`);
 
   return (
@@ -35,3 +35,6 @@ const VideoPage = () => {
 };
 
 export default VideoPage;
+
+
+

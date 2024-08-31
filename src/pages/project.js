@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import './project.css';
 import Multi from "../components/multiSelect";
-import VideoJS from '../components/VideoPlayer';
+import VideoPage from '../components/VideoPlayer';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import ListItem from '../components/List';
@@ -41,7 +41,7 @@ const Project = () => {
             responsive: true,
             fluid: true,
             sources: [{
-            src: 'https://youtu.be/VBoZSbRcfJ4?si=sc0fpIk-kfzeVg-K',
+            src: '',
             type: 'video/mp4'
             }]
         };
@@ -79,22 +79,33 @@ const Project = () => {
                 content_json.video.source_lang = data.language;
                 console.log(`${content_json.video.id}`)
                 setVideoid(content_json.video.id);
+                console.log(`this is video id 라인 82: ${videoid}`);
                 localStorage.setItem(id,JSON.stringify(content_json));
             })
             .catch((error) => {
                 console.error('There was a problem with the fetch operation:', error);
             });
-          },[]);
+          },[videoid]);
         
-        
-
     return (
     <div>
         <div className="content-container">
             <div className='video-container'>
-                <VideoJS options={videoJsOptions} onReady={handlePlayerReady}/>
+                {/* <VideoPage
+                options={{ ...videoJsOptions, sources: [{ src: `https://www.youtube.com/watch?v=${videoid}`, type: 'video/youtube' }] }}
+                onReady={handlePlayerReady} videoID={videoid}
+                /> */}
+                {/* videoid가 null이 아닐 때만 VideoPage 렌더링 */}
+                {/* 처음에는 setVideoid 하기도 전에 project component rendering되서 비디오 아이디 값이 null이였음 <-- 문제 */}
+                {videoid ? (
+                        <VideoPage
+                            options={videoJsOptions}
+                            videoID={videoid}
+                        />
+                    ) : (
+                        <p>Loading video...</p>
+                    )}
             </div>
-
             <div className='text-container'>
                 <TextInput value={selectedText} onChange={handleTextChange} />
             </div> 
