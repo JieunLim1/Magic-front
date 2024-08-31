@@ -8,7 +8,7 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import ListItem from '../components/List';
 import DownloadVTTButton from '../components/storage';
-
+import FileUpload from '../components/fileupload';
 const Project = () => {
     let { id } = useParams();
     console.log(`this is id in project: ${id}`);
@@ -58,22 +58,8 @@ const Project = () => {
             });
           };
         
-         const [project, setProject] = useState(null);
-
-
-        //   subtitleBlock의 text 수정하는 함수
-          const updateSubtitleText = () => {
-            const loadedProject = localStorage.getItem(id);
-            if (loadedProject) {
-                const org = JSON.parse(loadedProject);
-                org.video.subtitle[index] = selectedText;
-                const updatedProject = org;
-                setProject(updatedProject);
-                localStorage.setItem(id, JSON.stringify(updatedProject));
-              };
-          };
-
         const [ciderData, setCiderData] = useState(null);
+        const [videoid, setVideoid] = useState(null);
 
         // 처음 마운트될때, local storage에 subtitle 저장
           useEffect(()=>{
@@ -91,6 +77,8 @@ const Project = () => {
                 const content_json = JSON.parse(content);
                 content_json.video.subtitle = data.segments;
                 content_json.video.source_lang = data.language;
+                console.log(`${content_json.video.id}`)
+                setVideoid(content_json.video.id);
                 localStorage.setItem(id,JSON.stringify(content_json));
             })
             .catch((error) => {
@@ -104,7 +92,7 @@ const Project = () => {
     <div>
         <div className="content-container">
             <div className='video-container'>
-                <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+                <VideoJS options={videoJsOptions} onReady={handlePlayerReady}/>
             </div>
 
             <div className='text-container'>
@@ -123,6 +111,7 @@ const Project = () => {
         </div>
         <div>
             <DownloadVTTButton id={id}/>
+            <FileUpload/>
         </div>
         
     </div>

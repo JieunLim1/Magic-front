@@ -14,7 +14,6 @@ function Starter() {
         "owner_id": "",
         "video": {
             "id": 0,
-            "title": "",
             "url": "",
             "source_lang": "",
             "subtitle": [],
@@ -49,6 +48,7 @@ function Starter() {
         if (currentTitle && currentUrl) {
           setProjectKey(newProjectKey);
           setIsOpen(false);
+          const videoIDIndex = currentUrl.indexOf('v=')
     
           setSchema((prevSchema) => ({
             ...prevSchema,
@@ -57,6 +57,7 @@ function Starter() {
             title: currentTitle, 
             video: {
               ...prevSchema.video,
+              id: currentUrl.substring(videoIDIndex+2),
               url: currentUrl,
             },
           }));
