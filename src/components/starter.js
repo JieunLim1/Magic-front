@@ -62,7 +62,7 @@ function Starter() {
           }));
     
           setInputs({ title: "", url: "" });
-          navigate('/project');
+          navigate(`/project/${newProjectKey}`);
         } else {
           console.log("Title and URL are required!");
         }

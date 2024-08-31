@@ -1,8 +1,10 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
-function Popup() {
+import moment from 'moment';
+import { useParams } from 'react-router-dom';
+function Popup({index}) {
     // const inputRef = useRef();
-
+    const {id} = useParams();
     const [inputs, setInputs] = useState({
         start: "",
         end: "",
@@ -25,7 +27,20 @@ function Popup() {
     };
 
     const closeModal = () => {
-        setIsOpen(false);
+        
+        if (start && end && subtitle) {
+            const schema = localStorage.getItem(id);
+            const json_schema = JSON.parse(schema);
+            console.log(`${index}`);
+            const newSubtitle = { text: subtitle, start: start, end: end };
+            json_schema.video.subtitle.splice(index+1, 0, newSubtitle);
+
+            localStorage.setItem(id,JSON.stringify(json_schema)); 
+            setIsOpen(false);
+            setInputs({ title: "", url: "" });
+        } else {
+          console.log("start end subtilte required!");
+        }
     };
 
     const inputStyle = {
