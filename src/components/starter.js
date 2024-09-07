@@ -61,7 +61,6 @@ function Starter() {
               url: currentUrl,
             },
           }));
-    
           setInputs({ title: "", url: "" });
           navigate(`/project/${newProjectKey}`);
         } else {
@@ -71,9 +70,15 @@ function Starter() {
     
       useEffect(() => {
         if (schema.id) {
+          console.log(`this is video id from starter ${schema.video.id}`);
+          console.log(`${schema}`);
           localStorage.setItem(schema.id, JSON.stringify(schema));
         }
       }, [schema]); 
+
+      const handleClose = () => {
+        setIsOpen(false);
+    };
       
 
     const inputStyle = {
@@ -87,7 +92,7 @@ function Starter() {
 
     return (
         <div>
-            <button onClick={openModal}>start</button>
+            <button style={{position: 'absolute', top: '603px', left: '500px', backgroundColor: 'white', width: '350px', height: '70px', borderBlockColor: 'black', borderRadius: '45px', borderWidth: '1px', fontSize: '20px', marginTop: '80px'}} onClick={openModal}>Get started</button>
 
             <Modal isOpen={isOpen} onRequestClose={closeModal}>
                 <h2>Getting started</h2>
@@ -99,8 +104,12 @@ function Starter() {
                     <h4>Youtube video url: </h4>
                     <input style ={inputStyle} className='end-box' type="text" name="url" value={url} placeholder="url" onChange={onChangeInput}/>
                 </div>
-
-                <button onClick={closeModal}>done</button>
+                <div>
+                  <button onClick={closeModal}>done</button>
+                </div>
+                <div style={{marginTop: '150px'}}>
+                  <button onClick={handleClose}>close</button>
+                </div>
             </Modal>
         </div>
     )

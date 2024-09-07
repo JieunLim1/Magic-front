@@ -1,9 +1,7 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
-import moment from 'moment';
 import { useParams } from 'react-router-dom';
 function Popup({index}) {
-    // const inputRef = useRef();
     const {id} = useParams();
     const [inputs, setInputs] = useState({
         start: "",
@@ -25,6 +23,9 @@ function Popup({index}) {
     const openModal = () => {
         setIsOpen(true);
     };
+    const handleClose = () => {
+        setIsOpen(false);
+    }
 
     const closeModal = () => {
         
@@ -70,7 +71,8 @@ function Popup({index}) {
                     <input style ={inputStyle} className='sub-box' type="text" name="subtitle" value={subtitle} placeholder="subtitle" onChange={onChangeInput}/>
                 </div>
 
-                <button onClick={closeModal}/>
+                <button onClick={closeModal}>done</button>
+                <button onClick={handleClose}>close</button>
             </Modal>
         </div>
     )

@@ -3,9 +3,10 @@ import "videojs-youtube";
 import "./video-js.min.css";
 import captions from "../captions/cider.vtt";
 
-const VideoPage = ({videoID}) => {
+const VideoPage = ({videoID, captionsSrc}) => {
   //const videoID = "VBoZSbRcfJ4";
   console.log(`this is video id: ${videoID}`);
+  console.log(`this is caption src: ${captionsSrc}`)
 
   return (
     <>

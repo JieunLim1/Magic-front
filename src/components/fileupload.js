@@ -1,23 +1,43 @@
-import React, { useRef } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const FileUpload = (props) => {
-    const fileInput = useRef(null);
-    
-    const handleButtonClick = (e) => {
-        fileInput.current.click();
-    };
+function FileUpload() {
+    const [file, setFile] = useState(null);
 
-    const handleChange = (e) => {
+    const onFileChange = (e) => {
         console.log(e.target.files[0]);
+        setFile(e.target.files[0]);
     };
 
-    return(
-        <React.Fragment>
-            <button onClick={handleButtonClick}>file upload</button>
+    const onFileUpload = async () => {
+        if (!file) {
+            console.log("Please select a file first!");
+            return;
+        }
 
-            <input type='file' ref={fileInput} onChange={handleChange} style={{display: "none"}}></input>
-        </React.Fragment>
-    ); 
+        const formData = new FormData();
+        formData.append("file", file);
+        console.log(`appending successful`);
+
+        try {
+            const response = await axios.post("http://localhost:5000/upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            console.log("File uploaded successfully", response.data);
+        } catch (error) {
+            console.error("Error uploading the file", error);
+        }
+    };
+
+    return (
+        
+        <div>
+            <input type="file" onChange={onFileChange} />
+            <button onClick={onFileUpload}>Upload</button>
+        </div>
+    );
 }
 
 export default FileUpload;

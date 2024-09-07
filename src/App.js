@@ -6,6 +6,8 @@ import Dashboard from './pages/dashboard';
 import Plan from './pages/plan';
 import Nav from './components/NavBar';
 import Project from './pages/project';
+import Landing from './pages/landing';
+import { Navigate } from 'react-router-dom';
 import Starter from './components/starter';
 function App() {
   return (
@@ -13,11 +15,13 @@ function App() {
       <div className='App'>
         <Nav />
         <Routes>
+          <Route path="/" element={<Navigate to="/magic" />} />
           <Route path='/about' element={<About />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/plan' element={<Plan />} />
           <Route path='/project/:id' element={<Project />} />
-        </Routes> 
+          <Route path='/magic' element={<Landing/>}/>
+        </Routes>
         <Starter/>
       </div>
     </BrowserRouter>
