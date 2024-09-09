@@ -21,21 +21,16 @@ const VideoPage = ({videoID, captionsSrc}) => {
         >
           <track
             kind="captions"
-            src={captions}
-            srclang="en"
-            label="English"
+            src= {captionsSrc}
+            srclang="ko"
+            label="Korean"
             mode="showing"
           ></track>
         </video>
       </main>
 
-      <script src={"%PUBLIC_URL%/dist/video.min.js"}></script>
-      <script src={"%PUBLIC_URL%/dist/Youtube.min.js"}></script>
     </>
   );
 };
 
 export default VideoPage;
-
-
-

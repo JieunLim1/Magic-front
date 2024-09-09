@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function FileUpload() {
+function FileUpload({onUploadComplete}) {
     const [file, setFile] = useState(null);
 
     const onFileChange = (e) => {
@@ -26,6 +26,8 @@ function FileUpload() {
                 },
             });
             console.log("File uploaded successfully", response.data);
+
+            onUploadComplete(response.data.filePath);
         } catch (error) {
             console.error("Error uploading the file", error);
         }
