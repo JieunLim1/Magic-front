@@ -3,8 +3,6 @@ import { Navigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState, useRef } from 'react';
 import './project.css';
 import VideoPage from '../components/VideoPlayer';
-import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
 import ListItem from '../components/List';
 import DownloadVTTButton from '../components/storage';
 import FileUpload from '../components/fileupload';
@@ -92,6 +90,11 @@ const Project = () => {
         }
     }, [filePath]);
 
+    const handleSetDebugCaptions = () => {
+        const debugUrl = "http://localhost:5000/uploads/1725696216629.vtt";
+        setFilePath(debugUrl);
+    };
+
     const handleSave = () => {
         const now = moment().format('YYYY/MM/DD HH:mm:ss');
         const content = localStorage.getItem(id);
@@ -108,12 +111,13 @@ const Project = () => {
                     <FileUpload onUploadComplete={handleFileUpload}/>
 
                     { videoid ? (
-                        <VideoPage
+                        <><VideoPage
                             options={videoJsOptions}
                             videoID={videoid}
                             captionsSrc={filePath}
-                            onReady={handlePlayerReady}
-                        />
+                            onReady={handlePlayerReady} /><button onClick={handleSetDebugCaptions} style={{ marginTop: "1rem" }}>
+                                Set Debug Captions
+                            </button></>
                     ) : (
                         <p>Loading video...</p>
                     )}
