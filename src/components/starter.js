@@ -32,6 +32,8 @@ function Starter() {
     });
     const { title, url } = inputs;
 
+    const [submit, setSubmit] = useState(false);
+
     const onChangeInput = (e) => {
         const {name, value} = e.target;       
         setInputs({...inputs, [name]: value});
@@ -70,7 +72,7 @@ function Starter() {
             },
           }));
           setInputs({ title: "", url: "" });
-          navigate(`/project/${newProjectKey}`);
+          setSubmit(true);
         } else {
           console.log("Title and URL are required!");
         }
@@ -102,6 +104,13 @@ function Starter() {
       const handleClose = () => {
         setIsOpen(false);
     };
+
+    useEffect(() => {
+      if (submit) {
+        navigate(`/project/${schema.projectKey}`);
+        setSubmit(false);
+      }
+    }, [submit]);
     
     const onFileUpload = async () => {
       if (!file) {
