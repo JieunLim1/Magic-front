@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 function Starter() {
     const navigate = useNavigate();
 
@@ -12,6 +14,7 @@ function Starter() {
         "updated": "",
         "title": "",
         "owner_id": "",
+        "path": "",
         "video": {
             "id": 0,
             "url": "",
@@ -19,6 +22,9 @@ function Starter() {
             "subtitle": [],
         }
     });
+
+    const [file, setFile] = useState(null);
+    const [path, setPath] = useState(null);
 
     const [inputs, setInputs] = useState({
         title: "",
@@ -54,7 +60,9 @@ function Starter() {
             ...prevSchema,
             id: newProjectKey,
             created: newCreatedTime,
-            title: currentTitle, 
+            title: currentTitle,
+            updated: newCreatedTime,
+            path: path,
             video: {
               ...prevSchema.video,
               id: currentUrl.substring(videoIDIndex+2),
@@ -67,11 +75,26 @@ function Starter() {
           console.log("Title and URL are required!");
         }
       };
+
+      const onFileChange = (e) => {
+        console.log(e.target.files[0]);
+        setFile(e.target.files[0]);
+    };
+
+    useEffect(() => {
+      if (path) {
+          setSchema((prevSchema) => ({
+              ...prevSchema,
+              path: path  // 파일 경로 업데이트
+          }));
+          localStorage.setItem(schema.id, JSON.stringify(schema));
+      }
+  }, [path]);
+
     
       useEffect(() => {
         if (schema.id) {
           console.log(`this is video id from starter ${schema.video.id}`);
-          console.log(`${schema}`);
           localStorage.setItem(schema.id, JSON.stringify(schema));
         }
       }, [schema]); 
@@ -79,7 +102,30 @@ function Starter() {
       const handleClose = () => {
         setIsOpen(false);
     };
-      
+    
+    const onFileUpload = async () => {
+      if (!file) {
+          console.log("Please select a file first!");
+          return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+      console.log(`appending successful`);
+
+      try {
+          const response = await axios.post("http://localhost:5000/init", formData, {
+              headers: {
+                  "Content-Type": "multipart/form-data",
+              },
+          });
+          console.log("File uploaded successfully", response.data);
+          console.log(`this is file path: ${response.data.filePath}`);
+          setPath(response.data.filePath);
+      } catch (error) {
+          console.error("Error uploading the file", error);
+      }
+  };
 
     const inputStyle = {
         width: '50%', // Full width of the container
@@ -92,7 +138,7 @@ function Starter() {
 
     return (
         <div>
-            <button style={{position: 'absolute', top: '603px', left: '500px', backgroundColor: 'white', width: '350px', height: '70px', borderBlockColor: 'black', borderRadius: '45px', borderWidth: '1px', fontSize: '20px', marginTop: '80px'}} onClick={openModal}>Get started</button>
+            <button style={{backgroundColor: 'white', width: '150px', height: '30px', borderBlockColor: 'black', borderRadius: '5px', borderWidth: '1px', fontSize: '20px', marginTop: '40px'}} onClick={openModal}>Start</button>
 
             <Modal isOpen={isOpen} onRequestClose={closeModal}>
                 <h2>Getting started</h2>
@@ -109,6 +155,10 @@ function Starter() {
                 </div>
                 <div style={{marginTop: '150px'}}>
                   <button onClick={handleClose}>close</button>
+                </div>
+                <div>
+                    <input type="file" onChange={onFileChange}/>
+                    <button onClick={onFileUpload}>Upload</button>
                 </div>
             </Modal>
         </div>

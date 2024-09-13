@@ -108,6 +108,7 @@ const ListItem = ({ onItemClick }) => {
     const fetchDataAndStore = async () => {
       try {
         const response = localStorage.getItem(id);
+        console.log(`${response}`);
         const jsondata = JSON.parse(response) || [];
         if (Array.isArray(jsondata.video.subtitle)) {
           setSegments(jsondata.video.subtitle);

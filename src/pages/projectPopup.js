@@ -44,6 +44,8 @@ function Popup({index}) {
         }
     };
 
+    const [file, setFile] = useState(null);
+
     const inputStyle = {
         width: '50%', // Full width of the container
         maxWidth: '400px', // Max width of 400px
