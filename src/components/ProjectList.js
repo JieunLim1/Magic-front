@@ -12,7 +12,6 @@ const ProjectList = () => {
             const item = localStorage.getItem(key);
             allKeys.push(JSON.parse(item));
         }
-
         setAllJsonObj(allKeys);
     }, []);
 
@@ -24,9 +23,8 @@ const ProjectList = () => {
 
     const sort_by_update = (data) => { // data (json)
         const sortedData = [...data].sort(function (a, b) {
-            return new Date(b.created) - new Date(a.created);
+            return new Date(b.updated) - new Date(a.updated);
         });
-        console.log(`this is sorted list: ${JSON.stringify(sortedData)}`);
         setSorted(sortedData);
     };
 
@@ -37,13 +35,37 @@ const ProjectList = () => {
 
     function renderRow(item){
         return(
-            <div key={item} onClick={()=>onClickItem(item)} style={{display: 'flex', backgroundColor: 'white', marginLeft: '10px', marginBottom: '40px', width: '100px', height: '70px', borderColor: 'black', borderWidth: '1px', borderRadius: '2px', borderStyle: 'solid', justifyContent: 'center'}}>{item.created}</div>
-        )
+<div 
+  key={item} 
+  onClick={() => onClickItem(item)} 
+  style={{
+    display: 'flex',
+    backgroundImage: 'url("/projectLists.png")',
+    backgroundSize: 'contain',       
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    marginLeft: '50px',
+    marginBottom: '40px',
+    marginTop: '70px',
+    width: '250px',
+    height: '140px',
+    // borderRadius: '2px',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    fontWeight: 'bold',
+    color: 'black',
+    cursor: 'pointer',
+    textAlign: 'center',
+    paddingTop: '45px',
+  }}
+>
+  {item.title}
+</div>        )
     };
 
 
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
             {sorted.map((item)=>(
                 renderRow(item)
             ))}

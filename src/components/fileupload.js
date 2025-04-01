@@ -36,7 +36,7 @@ function FileUpload({onUploadComplete}) {
     return (
         
         <div>
-            <input type="file" onChange={onFileChange} />
+            <input type="file" accept='.vtt' onChange={onFileChange} />
             <button onClick={onFileUpload}>Upload</button>
         </div>
     );

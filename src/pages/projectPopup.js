@@ -32,7 +32,6 @@ function Popup({index}) {
         if (start && end && subtitle) {
             const schema = localStorage.getItem(id);
             const json_schema = JSON.parse(schema);
-            console.log(`${index}`);
             const newSubtitle = { text: subtitle, start: start, end: end };
             json_schema.video.subtitle.splice(index+1, 0, newSubtitle);
 

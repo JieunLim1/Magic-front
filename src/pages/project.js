@@ -16,12 +16,10 @@ const Project = () => {
     const navigate = useNavigate();
     const [selectedText, setSelectedText] = useState("");
     const [videoid, setVideoid] = useState(null);
-    const [videoReady, setVideoReady] = useState(false);
     const [filePath, setFilePath] = useState(null);
 
     const handleFileUpload = (path) => {
         setFilePath(path); // 파일 경로를 상태로 저장
-        console.log('Uploaded file path:', path);
     };
 
     const handleItemClick = (item) => {
@@ -55,7 +53,7 @@ const Project = () => {
         });
     };
 
-    useEffect(() => {
+    useEffect(() => {// video subtitle을 저장된 파일 경로를 사용해 읽어서 가져오기
         const fetchData = async () => {
             try {
                 const content = localStorage.getItem(id);
@@ -82,19 +80,12 @@ const Project = () => {
         fetchData();
     }, [id]);
 
-    // uploadedFile이 변경될 때 비디오 로드 상태를 업데이트
-    useEffect(() => {
-        if (filePath) {
-            setVideoReady(true);
-        }
-    }, [filePath]);
-
     const handleSetDebugCaptions = () => {
         const debugUrl = "http://localhost:5000/uploads/1725696216629.vtt";
         setFilePath(debugUrl);
     };
 
-    const handleSave = () => {
+    const handleSave = () => { // 저장시 누른 시각을 기준으로 프로젝트 업데이트 시간 변경
         const now = moment().format('YYYY/MM/DD HH:mm:ss');
         const content = localStorage.getItem(id);
         const content_json = JSON.parse(content);

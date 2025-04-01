@@ -5,9 +5,6 @@ import "videojs-youtube";
 import captions from "../captions/cider.vtt";
 
 const VideoPage = ({videoID, captionsSrc}) => {
-  //const videoID = "VBoZSbRcfJ4";
-  console.log(`this is video id: ${videoID}`);
-  console.log(`this is caption src: ${captionsSrc}`)
 
   const videoRef = useRef(null);
   const playerRef = useRef(null);
@@ -24,6 +21,7 @@ const VideoPage = ({videoID, captionsSrc}) => {
           {
             type: "video/youtube",
             src: `https://www.youtube.com/watch?v=${videoID}`,
+
           },
         ],
       });
@@ -50,8 +48,8 @@ const VideoPage = ({videoID, captionsSrc}) => {
         const track = player.addRemoteTextTrack({
           kind: "captions",
           src: captionsSrc,
-          srclang: "ko",
-          label: "Korean",
+          srclang: "",
+          label: "caption On",
           default: true, // 기본 자막 트랙으로 설정
         }, false);
 

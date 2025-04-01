@@ -25,27 +25,23 @@ function Starter() {
 
     const [file, setFile] = useState(null);
     const [path, setPath] = useState(null);
-
     const [inputs, setInputs] = useState({
         title: "",
         url: ""
     });
     const { title, url } = inputs;
-
     const [submit, setSubmit] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [projectKey, setProjectKey] = useState(0);
 
     const onChangeInput = (e) => {
         const {name, value} = e.target;       
         setInputs({...inputs, [name]: value});
     };
 
-    const [isOpen, setIsOpen] = useState(false);
-
     const openModal = () => {
        setIsOpen(true);
     };
-
-    const [projectKey, setProjectKey] = useState(0);
 
     const closeModal = () => {
         const newProjectKey = uuidv4(); 
@@ -62,8 +58,8 @@ function Starter() {
             ...prevSchema,
             id: newProjectKey,
             created: newCreatedTime,
-            title: currentTitle,
             updated: newCreatedTime,
+            title: currentTitle,
             path: path,
             video: {
               ...prevSchema.video,
@@ -87,16 +83,15 @@ function Starter() {
       if (path) {
           setSchema((prevSchema) => ({
               ...prevSchema,
-              path: path  // 파일 경로 업데이트
+              path: path
           }));
           localStorage.setItem(schema.id, JSON.stringify(schema));
       }
   }, [path]);
 
-    
-      useEffect(() => {
+    // any changes made within id obj will be updated immediately
+    useEffect(() => {
         if (schema.id) {
-          console.log(`this is video id from starter ${schema.video.id}`);
           localStorage.setItem(schema.id, JSON.stringify(schema));
         }
       }, [schema]); 
@@ -104,14 +99,15 @@ function Starter() {
       const handleClose = () => {
         setIsOpen(false);
     };
-
+    // submit이 눌리면 schema를 업데이트 하고 navigate
     useEffect(() => {
       if (submit) {
-        navigate(`/project/${schema.projectKey}`);
+        navigate(`/project/${projectKey}`);
         setSubmit(false);
       }
     }, [submit]);
-    
+
+    // connecting with server (file upload)
     const onFileUpload = async () => {
       if (!file) {
           console.log("Please select a file first!");
@@ -120,7 +116,6 @@ function Starter() {
 
       const formData = new FormData();
       formData.append("file", file);
-      console.log(`appending successful`);
 
       try {
           const response = await axios.post("http://localhost:5000/init", formData, {
@@ -129,7 +124,6 @@ function Starter() {
               },
           });
           console.log("File uploaded successfully", response.data);
-          console.log(`this is file path: ${response.data.filePath}`);
           setPath(response.data.filePath);
       } catch (error) {
           console.error("Error uploading the file", error);
@@ -137,18 +131,42 @@ function Starter() {
   };
 
     const inputStyle = {
-        width: '50%', // Full width of the container
-        maxWidth: '400px', // Max width of 400px
-        padding: '10px', // Padding inside the input box
-        marginBottom: '10px', // Space between input boxes
-        fontSize: '16px' // Font size inside the input box
+        width: '50%',
+        maxWidth: '400px',
+        padding: '10px',
+        marginBottom: '10px',
+        fontSize: '16px'
     };
 
 
     return (
         <div>
-            <button style={{backgroundColor: 'white', width: '150px', height: '30px', borderBlockColor: 'black', borderRadius: '5px', borderWidth: '1px', fontSize: '20px', marginTop: '40px'}} onClick={openModal}>Start</button>
-
+            {/* <button style={{backgroundColor: 'white', width: '150px', height: '30px', borderBlockColor: 'black', borderRadius: '5px', borderWidth: '1px', fontSize: '20px', marginTop: '40px'}} onClick={openModal}>Start</button> */}
+            <button onClick={openModal}
+                style={{
+                  position: "absolute",
+                  left: "420px",
+                  top: "330px",
+                  backgroundColor: "#CBAF85",
+                  borderRadius: "70px",
+                  width: "130px",
+                  height: "130px",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer", 
+                  overflow: "hidden",
+                }}
+              >
+                <img 
+                  src="/dashboardArrow.png" 
+                  alt="Start new project"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover"
+                  }}
+                />
+            </button>
             <Modal isOpen={isOpen} onRequestClose={closeModal}>
                 <h2>Getting started</h2>
                 <div>
@@ -159,15 +177,16 @@ function Starter() {
                     <h4>Youtube video url: </h4>
                     <input style ={inputStyle} className='end-box' type="text" name="url" value={url} placeholder="url" onChange={onChangeInput}/>
                 </div>
+                
                 <div>
-                  <button onClick={closeModal}>done</button>
+                    <input type="file" accept='.json' onChange={onFileChange}/>
+                    <button onClick={onFileUpload}>Upload</button>
+                </div>
+                <div>
+                  <button onClick={closeModal} style={{marginTop: '40px'}}>submit</button>
                 </div>
                 <div style={{marginTop: '150px'}}>
-                  <button onClick={handleClose}>close</button>
-                </div>
-                <div>
-                    <input type="file" onChange={onFileChange}/>
-                    <button onClick={onFileUpload}>Upload</button>
+                  <button onClick={handleClose}>X</button>
                 </div>
             </Modal>
         </div>
