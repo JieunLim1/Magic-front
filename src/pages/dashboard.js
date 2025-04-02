@@ -23,54 +23,54 @@ import React from "react";
 
 const Dashboard = () => {
   // Style object
-  const styles = {
-    container: {
-      padding: "20px",
-      backgroundColor: "#D9BE96",
-      borderRadius: "8px",
-      maxWidth: "400px",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
-    },
-    heading: {
-      fontSize: "24px",
-      fontWeight: "bold",
-      marginBottom: "20px",
-      color: "#333333"
-    },
-    proButton: {
-      backgroundColor: "#6200ee",
-      color: "white",
-      border: "none",
-      padding: "12px",
-      borderRadius: "4px",
-      fontWeight: "bold",
-      width: "100%",
-      marginBottom: "30px",
-      cursor: "pointer",
-      transition: "background-color 0.2s"
-    },
-    proButtonHover: {
-      backgroundColor: "#7c29ff"
-    },
-    title: {
-      fontSize: "18px",
-      fontWeight: "600",
-      marginBottom: "8px",
-      color: "#333333"
-    },
-    date: {
-      color: "#666666",
-      fontSize: "14px",
-      margin: "0"
-    }
-  };
+  // const styles = {
+  //   container: {
+  //     padding: "20px",
+  //     backgroundColor: "#D9BE96",
+  //     borderRadius: "8px",
+  //     maxWidth: "400px",
+  //     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
+  //   },
+  //   heading: {
+  //     fontSize: "24px",
+  //     fontWeight: "bold",
+  //     marginBottom: "20px",
+  //     color: "#333333"
+  //   },
+  //   proButton: {
+  //     backgroundColor: "#6200ee",
+  //     color: "white",
+  //     border: "none",
+  //     padding: "12px",
+  //     borderRadius: "4px",
+  //     fontWeight: "bold",
+  //     width: "100%",
+  //     marginBottom: "30px",
+  //     cursor: "pointer",
+  //     transition: "background-color 0.2s"
+  //   },
+  //   proButtonHover: {
+  //     backgroundColor: "#7c29ff"
+  //   },
+  //   title: {
+  //     fontSize: "18px",
+  //     fontWeight: "600",
+  //     marginBottom: "8px",
+  //     color: "#333333"
+  //   },
+  //   date: {
+  //     color: "#666666",
+  //     fontSize: "14px",
+  //     margin: "0"
+  //   }
+  // };
 
   const navigate = useNavigate();
   const onClick = () =>  {
     navigate('/plan');
   };
   const [isHovered, setIsHovered] = useState(false);
-  const [isExpand, setIsExpand] = useState(true);
+  const [isExpand, setIsExpand] = useState(false);
 
   const viewClick = () => {
     setIsExpand(!isExpand);
@@ -89,16 +89,16 @@ const Dashboard = () => {
                     </button>
                 </div>
                 <ProjectList/>
-                <img style={{position: 'absolute', top: '210px', left: '0px', width: '200px', height: '140px',}} src="/dashAcc1.png"/>
-                <img style={{position: 'absolute', top: '200px', left: '970px', width: '100px', height: '200px',}} src="/dashAcc2.png"/>
-                <img style={{position: 'absolute', top: '390px', left: '370px', width: '100px', height: '200px',}} src="/dahsAcc3.png"/>
+                <img style={{position: 'absolute', top: '210px', left: '0px', width: '200px', height: '140px',}} src="/dashAcc1.png" alt="dashAcc1"/>
+                <img style={{position: 'absolute', top: '200px', left: '970px', width: '100px', height: '200px',}} src="/dashAcc2.png" alt="dashAcc2"/>
+                <img style={{position: 'absolute', top: '390px', left: '370px', width: '100px', height: '200px',}} src="/dahsAcc3.png" alt="dashAcc3"/>
             </div>
             <img src="/dashStart.png" alt="Dashboard background" style={{
             position: 'absolute', top: '320px', left: '60px', width: '200px', height: '200px',
             objectFit: 'cover',}}/>
         <img style={{position: 'absolute', top: '320px', left: '610px',
             width: '300px',
-            height: '190px',}} src="/rocket.png"/>
+            height: '190px',}} src="/rocket.png" alt='rocket'/>
         </div>
         
   );
