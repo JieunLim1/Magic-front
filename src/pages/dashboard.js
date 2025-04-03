@@ -80,7 +80,9 @@ const Dashboard = () => {
             <div style={{position: "absolute", backgroundColor: "#D9BE96", width: "500px", height: "200px", padding: "50px 0px 100px 50px", marginTop: "60px", marginLeft: "60px", borderRadius: "10px", fontSize: "40px", textAlign: "left", }}>Let's start a new <br/>project</div>
             <Starter/>
             <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={onClick} style={{position: "absolute",backgroundColor: isHovered ? "#934C5E" : "#B06C8B", width: "700px", height: "200px", borderRadius: "10px", marginLeft: "660px", marginTop: "160px", paddingTop: "50px",paddingLeft:"45px", fontSize: "30px", cursor: "pointer", transition: "background-color 0.3s ease"}}>
-                Upgrade your account to PRO</div>
+                Upgrade your account to PRO+
+                <p style={{fontSize: '0.9rem', paddingLeft: '150px'}}>With a PRO+ subscription you get many additional and convenient <br/>magical features to edit your videos.</p>
+              </div>
             <div style={{textAlign: 'left', overflow: 'hidden', position: 'absolute', backgroundColor: '#576D56', width: '1200px', height: isExpand ? 'auto' : '300px', overflowY: isExpand ? 'visible' : 'hidden', transition: 'height 0.3s ease', margin: "500px 80px 0", borderRadius: "10px", padding: "20px 40px 0"}}>
                 <div style={{display: 'flex', flexDirection: 'row', gap: '60px'}}>
                     <h2 style={{color: '#CBD8C4', margin: 0,padding: 0,textAlign: 'left', fontSize: '24px',}}> Latest Projects</h2> 
