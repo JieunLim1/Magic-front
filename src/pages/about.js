@@ -15,6 +15,7 @@ const About = () => {
                 <h1 style={{margin: '50px 50px 0', textAlign: 'left', fontSize: '90px',}}>Editing Made Easy, <br/>Re;Magic Made Real</h1>
                 <div style={{backgroundColor: '#7B3A4A', position: 'absolute', width: '700px', height: '500px', zIndex: '1', margin: '300px 400px 0', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                     <img style={{marginTop: '5px', width: '400px'}} src='/videoconverter.png' alt='vieoConverter'></img>
+                    <p style={{margin: '70px 40px 70px 30px', color: 'white', fontSize: '1.1rem'}}>Just drop in your JSON and YouTube link! <br/> Re;Magic generates a caption timeline for you to edit. Preview the subtitles with the video, make precise timing adjustments, and export a clean VTT file. Check playback instantly with your new VTT file.</p>
                 </div>
             </div>
             <div style={{backgroundColor: '#4F3434', width: '100%', height:'auto'}}>
