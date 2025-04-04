@@ -49,7 +49,6 @@ const ProjectList = () => {
     marginTop: '70px',
     width: '250px',
     height: '140px',
-    // borderRadius: '2px',
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontWeight: 'bold',
