@@ -76,7 +76,7 @@ const Dashboard = () => {
     setIsExpand(!isExpand);
   }
   return (
-        <div style={{backgroundColor: "#455844", height: "100vh", width: "100%",}}> 
+        <div style={{paddingBottom: '100px', backgroundColor: "#455844", height: "100vh", width: "100%",}}> 
             <div style={{position: "absolute", backgroundColor: "#D9BE96", width: "500px", height: "200px", padding: "50px 0px 100px 50px", marginTop: "60px", marginLeft: "60px", borderRadius: "10px", fontSize: "40px", textAlign: "left", }}>Let's start a new <br/>project</div>
             <Starter/>
             <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={onClick} style={{position: "absolute",backgroundColor: isHovered ? "#934C5E" : "#B06C8B", width: "700px", height: "200px", borderRadius: "10px", marginLeft: "660px", marginTop: "160px", paddingTop: "50px",paddingLeft:"45px", fontSize: "30px", cursor: "pointer", transition: "background-color 0.3s ease"}}>
