@@ -3,67 +3,11 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import ProjectList from "../components/ProjectList";
-// const Dashboard = () => {
-//     return(
-//         <div>
-//             <div>
-//                 <h2>New Project</h2>
-//                 <Starter/>
-//             </div>
-//             <div>
-//                 <h2>Recent Projects</h2>
-//                 <ProjectList/>
-//             </div>
-//         </div>
-//     );
-// }
-// export default Dashboard;
+
 
 import React from "react";
 
 const Dashboard = () => {
-  // Style object
-  // const styles = {
-  //   container: {
-  //     padding: "20px",
-  //     backgroundColor: "#D9BE96",
-  //     borderRadius: "8px",
-  //     maxWidth: "400px",
-  //     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
-  //   },
-  //   heading: {
-  //     fontSize: "24px",
-  //     fontWeight: "bold",
-  //     marginBottom: "20px",
-  //     color: "#333333"
-  //   },
-  //   proButton: {
-  //     backgroundColor: "#6200ee",
-  //     color: "white",
-  //     border: "none",
-  //     padding: "12px",
-  //     borderRadius: "4px",
-  //     fontWeight: "bold",
-  //     width: "100%",
-  //     marginBottom: "30px",
-  //     cursor: "pointer",
-  //     transition: "background-color 0.2s"
-  //   },
-  //   proButtonHover: {
-  //     backgroundColor: "#7c29ff"
-  //   },
-  //   title: {
-  //     fontSize: "18px",
-  //     fontWeight: "600",
-  //     marginBottom: "8px",
-  //     color: "#333333"
-  //   },
-  //   date: {
-  //     color: "#666666",
-  //     fontSize: "14px",
-  //     margin: "0"
-  //   }
-  // };
 
   const navigate = useNavigate();
   const onClick = () =>  {
